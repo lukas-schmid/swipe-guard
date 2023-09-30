@@ -13,7 +13,8 @@ export const Button = ({ onPress, title }: ButtonProps) => {
     <TouchableOpacity onPress={onPress}>
       <LinearGradient
         colors={["#00D72F", "#4D9C5F"]}
-        style={styles.linearGradient}>
+        style={styles.linearGradient}
+      >
         <Text style={styles.buttonText}>{title}</Text>
       </LinearGradient>
     </TouchableOpacity>
