@@ -14,7 +14,7 @@ export default function ImagePicker() {
           <InitialStartButton />
         </View>
       )}
-      <ImageSwiper images={images} />
+      <ImageSwiper />
     </View>
   );
 }

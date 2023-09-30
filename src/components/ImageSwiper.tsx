@@ -10,16 +10,14 @@ import {
   NativeScrollEvent,
   Text,
 } from "react-native";
+import { useImages } from "src/hooks/useImages";
 
 import { TopNavigationBar } from "./TopNavigationBar";
 
 const { width, height } = Dimensions.get("window");
 
-interface ImageSwiperProps {
-  images: string[] | null;
-}
-
-export const ImageSwiper = ({ images }: ImageSwiperProps) => {
+export const ImageSwiper = () => {
+  const { images } = useImages();
   const [swiperIndex, setSwiperIndex] = useState(0);
   const [isNavigationBarVisible, setIsNavigationBarVisible] = useState(false);
   const touchStartX = useRef(0);
