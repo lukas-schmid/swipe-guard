@@ -27,7 +27,7 @@ export default function ImagePicker() {
 
   return (
     <View style={{ flex: 1 }}>
-      {images && images.length === 0 && (
+      {!images && (
         <View style={styles.buttonContainer}>
           <Button title="Pick images" onPress={pickImage} />
         </View>
