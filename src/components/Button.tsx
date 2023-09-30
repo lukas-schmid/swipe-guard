@@ -1,29 +1,24 @@
-import React, { FC } from "react";
-import { Dimensions, StyleSheet, Text } from "react-native";
-import { TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { Dimensions, StyleSheet, Text, TouchableOpacity } from "react-native";
 
-const { height, width } = Dimensions.get("screen");
+const { width } = Dimensions.get("screen");
 
-interface Props {
+interface ButtonProps {
   title: string;
   onPress: () => void;
 }
 
-const Button: FC<Props> = (props) => {
+export const Button = ({ onPress, title }: ButtonProps) => {
   return (
-    <TouchableOpacity onPress={props.onPress}>
+    <TouchableOpacity onPress={onPress}>
       <LinearGradient
         colors={["#00D72F", "#4D9C5F"]}
-        style={styles.linearGradient}
-      >
-        <Text style={styles.buttonText}>{props.title}</Text>
+        style={styles.linearGradient}>
+        <Text style={styles.buttonText}>{title}</Text>
       </LinearGradient>
     </TouchableOpacity>
   );
 };
-
-export default Button;
 
 const styles = StyleSheet.create({
   linearGradient: {

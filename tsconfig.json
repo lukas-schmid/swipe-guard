@@ -3,6 +3,7 @@
   "compilerOptions": {
     "strict": true,
     "baseUrl": ".",
+    "jsx": "preserve",
   },
   "include": [
     "**/*.ts",
