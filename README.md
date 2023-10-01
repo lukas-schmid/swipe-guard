@@ -19,3 +19,7 @@ npm run dev
 ```
 
 3. Scan the QR code in terminal and open it with Expo Go
+
+### Notes
+
+- not tested on Android
