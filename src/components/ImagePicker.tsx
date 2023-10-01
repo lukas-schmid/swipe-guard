@@ -1,70 +1,36 @@
-import React, { useState } from "react";
-import { Image, View, StyleSheet, Dimensions } from "react-native";
-import * as ExpoImagePicker from "expo-image-picker";
-import Button from "./Button";
-import Swiper from "react-native-swiper";
+import { View, StyleSheet, ActivityIndicator } from "react-native";
+import { useImagePicker } from "src/hooks/useImagePicker";
 
-const { width, height } = Dimensions.get("window");
+import { ImageSwiper } from "./ImageSwiper";
+import { InitialStartButton } from "./InitialStartButton";
 
-export default function ImagePicker() {
-  const [images, setImages] = useState<string[] | null>(null);
-  const [swiperIndex, setSwiperIndex] = useState(0);
+export const ImagePicker = () => {
+  const { images, isLoading } = useImagePicker();
 
-  const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
-    const result = await ExpoImagePicker.launchImageLibraryAsync({
-      mediaTypes: ExpoImagePicker.MediaTypeOptions.All,
-      allowsEditing: false,
-      quality: 1,
-      allowsMultipleSelection: true,
-    });
-
-    if (!result.canceled) {
-      const imageUris = result.assets.map((asset) => asset.uri);
-      setImages(imageUris);
-    }
-  };
+  if (isLoading) {
+    return (
+      <View>
+        <ActivityIndicator size={"large"} />
+      </View>
+    );
+  }
 
   return (
     <View style={{ flex: 1 }}>
       {!images && (
         <View style={styles.buttonContainer}>
-          <Button title="Pick images" onPress={pickImage} />
+          <InitialStartButton />
         </View>
       )}
-      {images && images.length > 0 && (
-        <Swiper
-          index={swiperIndex}
-          loop={false}
-          showsPagination={false}
-          onIndexChanged={(index) => setSwiperIndex(index)}
-        >
-          {images.map((image, index) => (
-            <View key={index} style={styles.slide}>
-              <Image source={{ uri: image }} style={styles.image} />
-            </View>
-          ))}
-        </Swiper>
-      )}
+      <ImageSwiper />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   buttonContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  slide: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    width,
-  },
-  image: {
-    width: width,
-    height: height,
-    resizeMode: "contain",
   },
 });

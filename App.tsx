@@ -1,20 +1,24 @@
-import ImagePicker from "src/components/ImagePicker";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { ImagePicker } from "src/components/ImagePicker";
+import { ImageProvider } from "src/context/ImageContext";
+import { colors } from "src/utils/colors";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <ImagePicker />
-    </View>
+    <ImageProvider>
+      <View style={styles.container}>
+        <StatusBar style="auto" />
+        <ImagePicker />
+      </View>
+    </ImageProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colors.black,
     alignItems: "center",
     justifyContent: "center",
   },
