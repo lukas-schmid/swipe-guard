@@ -10,14 +10,14 @@ import {
   NativeScrollEvent,
   Text,
 } from "react-native";
-import { useImages } from "src/hooks/useImages";
+import { useImagePicker } from "src/hooks/useImagePicker";
 
 import { TopNavigationBar } from "./TopNavigationBar";
 
 const { width, height } = Dimensions.get("window");
 
 export const ImageSwiper = () => {
-  const { images } = useImages();
+  const { images } = useImagePicker();
   const [swiperIndex, setSwiperIndex] = useState(0);
   const [isNavigationBarVisible, setIsNavigationBarVisible] = useState(false);
   const touchStartX = useRef(0);
@@ -88,12 +88,14 @@ export const ImageSwiper = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    position: "relative",
   },
   slide: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     width,
+    position: "relative",
   },
   image: {
     width,

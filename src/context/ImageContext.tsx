@@ -10,6 +10,7 @@ import {
 interface ImageContextProps {
   images: string[] | null;
   pickImages(): Promise<void>;
+  isLoading: boolean;
 }
 
 export const ImageContext = createContext<ImageContextProps>(
@@ -18,18 +19,26 @@ export const ImageContext = createContext<ImageContextProps>(
 
 export function ImageProvider({ children }: PropsWithChildren) {
   const [images, setImages] = useState<string[] | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const pickImages = useCallback(async () => {
-    const result = await ExpoImagePicker.launchImageLibraryAsync({
-      mediaTypes: ExpoImagePicker.MediaTypeOptions.All,
-      allowsEditing: false,
-      quality: 1,
-      allowsMultipleSelection: true,
-    });
+    setIsLoading(true);
+    try {
+      const result = await ExpoImagePicker.launchImageLibraryAsync({
+        mediaTypes: ExpoImagePicker.MediaTypeOptions.All,
+        allowsEditing: false,
+        quality: 1,
+        allowsMultipleSelection: true,
+      });
 
-    if (!result.canceled) {
-      const imageUris = result.assets.map((asset) => asset.uri);
-      setImages(imageUris);
+      if (!result.canceled) {
+        const imageUris = result.assets.map((asset) => asset.uri);
+        setImages(imageUris);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
@@ -37,8 +46,9 @@ export function ImageProvider({ children }: PropsWithChildren) {
     return {
       images,
       pickImages,
+      isLoading,
     };
-  }, [images, pickImages]);
+  }, [images, pickImages, isLoading]);
 
   return (
     <ImageContext.Provider value={value}>{children}</ImageContext.Provider>

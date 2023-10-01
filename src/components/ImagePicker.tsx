@@ -1,11 +1,19 @@
-import { View, StyleSheet } from "react-native";
-import { useImages } from "src/hooks/useImages";
+import { View, StyleSheet, ActivityIndicator } from "react-native";
+import { useImagePicker } from "src/hooks/useImagePicker";
 
 import { ImageSwiper } from "./ImageSwiper";
 import { InitialStartButton } from "./InitialStartButton";
 
-export default function ImagePicker() {
-  const { images } = useImages();
+export const ImagePicker = () => {
+  const { images, isLoading } = useImagePicker();
+
+  if (isLoading) {
+    return (
+      <View>
+        <ActivityIndicator size={"large"} />
+      </View>
+    );
+  }
 
   return (
     <View style={{ flex: 1 }}>
@@ -17,7 +25,7 @@ export default function ImagePicker() {
       <ImageSwiper />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   buttonContainer: {

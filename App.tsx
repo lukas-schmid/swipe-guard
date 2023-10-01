@@ -1,7 +1,8 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
-import ImagePicker from "src/components/ImagePicker";
+import { ImagePicker } from "src/components/ImagePicker";
 import { ImageProvider } from "src/context/ImageContext";
+import { colors } from "src/utils/colors";
 
 export default function App() {
   return (
@@ -17,7 +18,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000",
+    backgroundColor: colors.black,
     alignItems: "center",
     justifyContent: "center",
   },

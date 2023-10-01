@@ -6,18 +6,19 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useImages } from "src/hooks/useImages";
+import { useImagePicker } from "src/hooks/useImagePicker";
+import { colors } from "src/utils/colors";
 
 const { width } = Dimensions.get("screen");
 
 export const InitialStartButton = () => {
-  const { pickImages } = useImages();
+  const { pickImages } = useImagePicker();
 
   return (
     <View style={styles.buttonContainer}>
       <TouchableOpacity onPress={pickImages}>
         <LinearGradient
-          colors={["#00D72F", "#4D9C5F"]}
+          colors={[colors.primary_80, colors.primary_100]}
           style={styles.linearGradient}
         >
           <Text style={styles.buttonText}>{"Pick images"}</Text>
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     margin: 10,
-    color: "#ffffff",
+    color: colors.white,
     backgroundColor: "transparent",
   },
 });
